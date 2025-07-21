@@ -2,17 +2,15 @@
 -- docs.google.com/spreadsheets/d/1QSVsuAAMhBrhiZdTihVfSCwPzbbZWDLCtXWP23CU0ko
 
 local oldUnitDef_Post = UnitDef_Post
-function UnitDef_Post(i, j)
+function UnitDef_Post(unitID, unitDef)
     if oldUnitDef_Post and oldUnitDef_Post ~= UnitDef_Post then
-        oldUnitDef_Post(i, j)
+        oldUnitDef_Post(unitID, unitDef)
     end
 
-	for unitName, unitDef in pairs(UnitDefs) do
-		if unitDef.customparams and unitDef.customparams.subfolder == 'other/raptors' then
-			unitDef.metalcost = math.floor(unitDef.metalcost) * .34
-			unitDef.nochasecategory = "OBJECT"
-		end
-	end
+    if unitDef.customparams and unitDef.customparams.subfolder == 'other/raptors' then
+        unitDef.metalcost = math.floor(unitDef.health * 0.34)
+        unitDef.nochasecategory = "OBJECT"
+    end
 end
 
 for unitName, unitDef in pairs(UnitDefs) do
